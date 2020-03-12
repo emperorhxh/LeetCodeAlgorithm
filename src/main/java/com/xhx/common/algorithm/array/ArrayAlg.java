@@ -6,8 +6,42 @@ import java.util.Map;
 public class ArrayAlg {
     public static void main(String[] args) {
        // System.out.println(firstMissingPositive(new int[]{1,2,0}));
-        System.out.println(majorityElement(new int[]{2,2,1,1,1,2,2}));
+        System.out.println(minSubArray(new int[]{2,3,1,2,4,3},7));
         //System.out.println(firstMissingPositive(new int[]{7,8,9,11,12}));
+    }
+
+    /**
+     * 给定一个含有 n 个正整数的数组和一个正整数 **s ，找出该数组中满足其和 ≥ s 的长度最小的连续子数组。**如果不存在符合条件的连续子数组，返回 0。
+     * @param arr
+     * @param s
+     * @return
+     */
+    private static int minSubArray(int[] arr,int s){
+
+        if(arr.length == 0)return 0;
+        if(arr[0] >= s)return 1;
+        if(arr.length == 1){
+            return 0;
+        }
+        int left =0,right = 1;
+        int sum = arr[0]+arr[1];
+        int res= arr.length+1;
+        while (right < arr.length){
+            if(sum >=s){
+                res = res < right-left+1?res:right-left+1;
+                sum-=arr[left++];
+            }else {
+                right++;
+                if(right >arr.length-1){
+                    break;
+                }
+                sum+=arr[right];
+            }
+        }
+        if(res == arr.length+1){
+            res = 0;
+        }
+        return res;
     }
 
     /**
