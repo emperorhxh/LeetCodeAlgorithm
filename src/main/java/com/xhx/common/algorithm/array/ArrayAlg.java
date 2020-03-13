@@ -1,15 +1,77 @@
 package com.xhx.common.algorithm.array;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ArrayAlg {
     public static void main(String[] args) {
        // System.out.println(firstMissingPositive(new int[]{1,2,0}));
-        System.out.println(minSubArray(new int[]{2,3,1,2,4,3},7));
+        System.out.println(containNearByDuplicate(new int[]{1,2,3,1,2,3},2));
         //System.out.println(firstMissingPositive(new int[]{7,8,9,11,12}));
     }
 
+    /**
+     * 给定一个大小为 n 的数组，找出其中所有出现超过 ⌊ n/3 ⌋ 次的元素。
+     * 说明: 要求算法的时间复杂度为 O(n)，空间复杂度为 O(1)。
+     * @param arr
+     * @return
+     */
+    private static List<Integer> majorityElementOf3(int[] arr){
+        List<Integer> res = new ArrayList<>();
+        if(arr.length <1)return  res;
+        int a = arr[0],b=arr[0];
+        int ca=0,cb=0;
+        for(int num:arr){
+            if(a == num){
+                ca++;
+                continue;
+            }
+            if(b == num){
+                cb++;
+                continue;
+            }
+            if(ca == 0){
+                a=num;
+                ca++;
+                continue;
+            }
+            if(cb == 0){
+                b =num;
+                cb++;
+                continue;
+            }
+            ca--;
+            cb--;
+        }
+        ca=0;
+        cb=0;
+        for(int num:arr){
+            if(num ==a){
+                ca++;
+            }else if(num == b){
+                cb++;
+            }
+        }
+        if(ca >arr.length/3) res.add(a);
+        if(cb >arr.length/3) res.add(b);
+        return res;
+    }
+    /**
+     * 给定一个整数数组和一个整数 k，判断数组中是否存在两个不同的索引 i 和 j，使得 nums [i] = nums [j]，并且 i 和 j 的差的绝对值最大为 k。
+     * @param arr
+     * @param k
+     * @return
+     */
+    private static boolean containNearByDuplicate(int[] arr,int k){
+        if(arr.length <=1)return false;
+        if(k <=0 || k>arr.length-1) return false;
+        for(int i=0;i<arr.length;i++){
+            if(i+k <arr.length && arr[i] == arr[k+i])return true;
+        }
+        return false;
+    }
     /**
      * 给定一个含有 n 个正整数的数组和一个正整数 **s ，找出该数组中满足其和 ≥ s 的长度最小的连续子数组。**如果不存在符合条件的连续子数组，返回 0。
      * @param arr
