@@ -51,11 +51,44 @@ public class Link {
        }
         return res;
     }
-    public  static void main(String[] arg){
-        int[] arr =maxSlidingWindow(new int[]{1,3,-1,-3,5,3,6,7},3);
-        for(int a:arr){
-            System.out.println(a);
+
+    /**
+     * 给定一个单链表，把所有的奇数节点和偶数节点分别排在一起。请注意，这里的奇数节点和偶数节点指的是节点编号的奇偶性，而不是节点的值的奇偶性。
+     * @param node
+     * @return
+     */
+    public static Node oddEventList(Node node){
+        if(null == node) return node;
+        int index = 1;
+        Node node1Head = node,tail1= node;
+        Node node2Head = node.getNext(),tail2=node2Head;
+        if(null == node2Head ) return node;
+        Node cur = tail2.getNext();
+        while (cur != null){
+            if(index % 2 == 1){
+                tail1.setNext(cur);
+                tail1 = cur;
+
+            }else {
+                tail2.setNext(cur);
+                tail2 = cur;
+            }
+            cur =cur.getNext();
+            index++;
         }
+        tail2.setNext(null);
+
+        tail1.setNext(node2Head);
+
+        return node1Head;
+    }
+
+
+    public  static void main(String[] arg){
+        Node node =Node.getNode(10);
+        node.print();
+        node = oddEventList(node);
+        node.print();
 
     }
 }

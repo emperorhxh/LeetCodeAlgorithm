@@ -32,7 +32,7 @@ public class Node {
     public static Node getNode(int size){
         Node origin =new Node(5);
         Node current =origin;
-        for(int i = 0;i<size;i++){
+        for(int i = 0;i<size-1;i++){
             Random random = new Random();
             int e= random.nextInt(10);
             Node next =new Node(10+e);
