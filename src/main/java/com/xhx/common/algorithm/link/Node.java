@@ -5,7 +5,7 @@ import java.util.Random;
 public class Node {
     private int value;
     private Node next;
-    private Node(int value){
+    public Node(int value){
         this.value = value;
     }
 
